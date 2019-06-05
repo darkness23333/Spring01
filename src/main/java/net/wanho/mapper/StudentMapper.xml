@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.wanho.mapper.StudentMapper">
+    <delete id="delStuById"> DELETE FROM student WHERE id=#{id}</delete>
+
+    <select id="queryAll" resultType="net.wanho.pojo.Student">
+
+        SELECT * FROM  student
+
+
+    </select>
+    <select id="queryStuById" resultType="net.wanho.pojo.Student">
+        SELECT * FROM  student WHERE id=#{id}
+    </select>
+    <select id="QLike" resultType="net.wanho.pojo.Student">
+        SELECT * FROM student WHERE name LIKE concat(concat('%',#{name}),'%')
+    </select>
+
+    <insert id="AddStu">
+        INSERT INTO student VALUES (NULL ,#{name},#{sex},#{age},#{className},#{status},#{creationTime},null)
+    </insert>
+
+    <update id="updateStuById">
+        UPDATE student SET name=#{name},sex=#{sex},age=#{age},className=#{className},updateTime=DATE_FORMAT(NOW(),'%Y-%m-%d %H:%m:%s')
+        where id=#{id}
+
+    </update>
+    <update id="OpenStu">
+        UPDATE student SET status=1 WHERE id=#{id}
+    </update>
+    <update id="CloseStu">
+        UPDATE student SET status=0 WHERE id=#{id}
+    </update>
+
+
+</mapper>
